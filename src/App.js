@@ -7,6 +7,7 @@ function App() {
   let [따봉,따봉변경] = useState([0,0,0]);
   let [modal,setModal] = useState(false);
   let [title,setTitle] = useState(0);
+  let [입력값,입력값변경] = useState('');
 
   return (
     <div className="App">
@@ -30,7 +31,12 @@ function App() {
             <h4 onClick={()=>{
               setTitle(i)
               setModal(!modal)
-              }}>{글제목[i]}</h4>
+              }}>{글제목[i]}
+                <button onClick={
+                  ()=>{
+                    글제목.splice(i, 1);
+                  }}>삭제버튼</button>
+              </h4>
             <span onClick={
               ()=>{
                 let copy = [...따봉];
@@ -43,6 +49,17 @@ function App() {
           )
         })
       }
+
+      <input onChange={
+        (e)=>{
+          입력값변경(e.target.value);
+        }} type="text" />
+        <button onClick={
+          ()=>{
+            let copy = [...글제목];
+            copy.unshift(입력값);
+            글제목변경(copy);
+        }}>버튼</button>
 
       {
         modal == true ? <Modal title={title} 글제목 = {글제목} /> : null
